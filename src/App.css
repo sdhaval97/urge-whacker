@@ -1,99 +1,132 @@
 .app-container {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-  background: #1a1a1a;
-}
-
-.ui-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Let clicks pass through to physics */
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 2rem;
-  z-index: 10;
 }
 
 header {
-  text-align: center;
-  pointer-events: auto;
+  margin-bottom: 3rem;
 }
 
-h1 {
-  font-size: 2rem;
-  color: #fff;
-  opacity: 0.5;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-}
-
-.streak-counter {
-  margin-top: 1rem;
-}
-
-.streak-counter .count {
-  font-size: 5rem;
-  font-weight: 900;
-  color: #fff;
-  display: block;
-  line-height: 1;
-  text-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-
-.streak-counter .label {
-  font-size: 1rem;
-  color: #888;
-  letter-spacing: 2px;
-}
-
-.controls {
+/* Start Screen */
+.start-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  pointer-events: auto;
-  margin-bottom: 2rem;
+  gap: 2rem;
+  animation: fadeIn 0.5s ease;
 }
 
-.btn-complete {
-  background: #fff;
-  color: #000;
+.btn-emergency {
+  background: #ff4b4b;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 900;
+  padding: 2rem 3rem;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 10px 0 #d32f2f, 0 20px 20px rgba(0,0,0,0.3);
+  transition: all 0.1s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: heartbeat 2s infinite;
+}
+
+.btn-emergency:active {
+  transform: translateY(10px);
+  box-shadow: 0 0 0 #d32f2f, inset 0 5px 10px rgba(0,0,0,0.3);
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  5% { transform: scale(1.05); }
+  10% { transform: scale(1); }
+  15% { transform: scale(1.05); }
+  20% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.high-score {
+  font-size: 1.2rem;
+  color: #ffd700;
+  font-weight: bold;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Game Over Screen */
+.game-over-screen {
+  background: #2a2a2a;
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid #444;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.final-score {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--primary);
+  margin: 1rem 0;
+}
+
+.new-record {
+  color: #ffd700;
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 1.5rem 4rem;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-  transition: transform 0.1s, box-shadow 0.1s;
+  margin-bottom: 2rem;
+  animation: bounce 1s infinite;
 }
 
-.btn-complete:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.3);
+.check-in {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--text-muted);
 }
 
-.btn-complete:active {
-  transform: translateY(2px);
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.btn-reset {
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+}
+
+.btn-secondary {
   background: transparent;
-  border: 1px solid #444;
-  color: #666;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  border-radius: 20px;
+  border: 2px solid #555;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
 }
 
-.btn-reset:hover {
-  border-color: #ff4b4b;
-  color: #ff4b4b;
+.btn-secondary:hover {
+  border-color: var(--text-main);
+  color: var(--text-main);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }

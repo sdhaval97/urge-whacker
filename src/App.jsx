@@ -1,57 +1,70 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
-import ChainSimulation from './components/ChainSimulation'
+import GameCanvas from './components/GameCanvas'
 
 function App() {
-  const [streak, setStreak] = useState(() => {
-    return parseInt(localStorage.getItem('physics-chain-streak') || '0')
+  const [gameState, setGameState] = useState('idle') // idle, playing, gameover
+  const [lastScore, setLastScore] = useState(0)
+  const [highScore, setHighScore] = useState(() => {
+    return parseInt(localStorage.getItem('whack-high-score') || '0')
   })
-  
-  const chainRef = useRef(null)
 
-  useEffect(() => {
-    localStorage.setItem('physics-chain-streak', streak.toString())
-  }, [streak])
-
-  const handleComplete = () => {
-    setStreak(s => s + 1)
-    if (chainRef.current) {
-      chainRef.current.addLink()
-    }
+  const startGame = () => {
+    setGameState('playing')
   }
 
-  const handleReset = () => {
-    if (confirm("Break the chain?")) {
-      setStreak(0)
-      window.location.reload() // Easiest way to clear physics world for now
+  const handleGameOver = (score) => {
+    setLastScore(score)
+    if (score > highScore) {
+      setHighScore(score)
+      localStorage.setItem('whack-high-score', score.toString())
     }
+    setGameState('gameover')
   }
 
   return (
     <div className="app-container">
-      <ChainSimulation ref={chainRef} linkCount={streak} />
-      
-      <div className="ui-overlay">
-        <header>
-          <h1>Chain Reaction</h1>
-          <div className="streak-counter">
-            <span className="count">{streak}</span>
-            <span className="label">LINKS</span>
-          </div>
-        </header>
+      <header>
+        <h1>Urge Whacker 🔨</h1>
+        <p>Distract your brain. Defeat the urge.</p>
+      </header>
 
-        <div className="controls">
-          <button className="btn-complete" onClick={handleComplete}>
-            + Add Link
-          </button>
-          
-          {streak > 0 && (
-            <button className="btn-reset" onClick={handleReset}>
-              Break Chain
+      <main>
+        {gameState === 'idle' && (
+          <div className="start-screen">
+            <div className="high-score">High Score: {highScore}</div>
+            <button className="btn-emergency" onClick={startGame}>
+              🚨 I HAVE AN URGE! 🚨
             </button>
-          )}
-        </div>
-      </div>
+            <p className="hint">Play for 60 seconds to reset your focus.</p>
+          </div>
+        )}
+
+        {gameState === 'playing' && (
+          <GameCanvas onGameOver={handleGameOver} />
+        )}
+
+        {gameState === 'gameover' && (
+          <div className="game-over-screen">
+            <h2>Time's Up!</h2>
+            <div className="final-score">Score: {lastScore}</div>
+            {lastScore >= highScore && lastScore > 0 && (
+              <div className="new-record">🏆 NEW RECORD! 🏆</div>
+            )}
+            
+            <p className="check-in">How is the urge now?</p>
+            
+            <div className="actions">
+              <button className="btn-primary" onClick={startGame}>
+                Still there... Play Again
+              </button>
+              <button className="btn-secondary" onClick={() => setGameState('idle')}>
+                I'm Good Now
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   )
 }
