@@ -1,0 +1,49 @@
+.mole-hole {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* Square aspect ratio */
+  background: #3a2e2e;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 10px 20px rgba(0,0,0,0.5);
+  cursor: crosshair;
+}
+
+.mole {
+  position: absolute;
+  bottom: -100%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background: #ff4b4b;
+  border-radius: 40% 40% 0 0;
+  transition: bottom 0.1s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.mole.visible {
+  bottom: 0;
+}
+
+.mole.whacked {
+  background: #4caf50;
+  transform: scale(0.95);
+}
+
+.mole-face {
+  font-size: 3rem;
+  pointer-events: none;
+}
+
+.dirt {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20%;
+  background: #5d4037;
+  z-index: 2;
+  border-radius: 0 0 50% 50%;
+}

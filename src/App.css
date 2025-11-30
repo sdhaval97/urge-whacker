@@ -1,0 +1,132 @@
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  margin-bottom: 3rem;
+}
+
+/* Start Screen */
+.start-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  animation: fadeIn 0.5s ease;
+}
+
+.btn-emergency {
+  background: #ff4b4b;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 900;
+  padding: 2rem 3rem;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 10px 0 #d32f2f, 0 20px 20px rgba(0,0,0,0.3);
+  transition: all 0.1s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: heartbeat 2s infinite;
+}
+
+.btn-emergency:active {
+  transform: translateY(10px);
+  box-shadow: 0 0 0 #d32f2f, inset 0 5px 10px rgba(0,0,0,0.3);
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  5% { transform: scale(1.05); }
+  10% { transform: scale(1); }
+  15% { transform: scale(1.05); }
+  20% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.high-score {
+  font-size: 1.2rem;
+  color: #ffd700;
+  font-weight: bold;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Game Over Screen */
+.game-over-screen {
+  background: #2a2a2a;
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid #444;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.final-score {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--primary);
+  margin: 1rem 0;
+}
+
+.new-record {
+  color: #ffd700;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  animation: bounce 1s infinite;
+}
+
+.check-in {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--text-muted);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid #555;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-main);
+  color: var(--text-main);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
